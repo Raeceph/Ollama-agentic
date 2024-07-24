@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/raecephjudesayson/Documents/Agents/.venv/lib/python3.12/site-packages/llama_cpp/server/__main__.py", line 32, in <module>
+    from llama_cpp.server.app import create_app
+  File "/Users/raecephjudesayson/Documents/Agents/.venv/lib/python3.12/site-packages/llama_cpp/server/app.py", line 21, in <module>
+    from sse_starlette.sse import EventSourceResponse
+ModuleNotFoundError: No module named 'sse_starlette'
