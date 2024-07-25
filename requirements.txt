@@ -3,3 +3,4 @@ crewai_tools
 langchain_community
 duckduckgo-search
 requests
+ollama
