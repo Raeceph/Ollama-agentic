@@ -7,11 +7,11 @@ from langchain_community.llms import Ollama
 # Configure Ollama
 os.environ["OPENAI_API_KEY"] = ""
 os.environ["OPENAI_API_BASE"] = "http://localhost:11434"
-os.environ["OPENAI_MODEL_NAME"] = "gemma2:9b"
+os.environ["OPENAI_MODEL_NAME"] = "llama3.1"
 
 # Initialize the Ollama model
 llm = Ollama(
-    model="gemma2:9b",
+    model="llama3.1",
     base_url="http://localhost:11434"
 )
 
@@ -19,100 +19,100 @@ llm = Ollama(
 search_tool = DuckDuckGoSearchRun()
 scrape_tool = ScrapeWebsiteTool()
 
-# Define the Customer Research Agent
-customer_research_agent = Agent(
-    role="Customer Research Agent",
-    goal="Gather detailed information about customer experiences, feedback, and satisfaction levels.",
-    backstory="Tasked with collecting comprehensive data about customer experiences to inform improvement strategies.",
+# Define the Financial Research Agent
+financial_research_agent = Agent(
+    role="Financial Research Agent",
+    goal="Gather detailed information about financial market trends and investment opportunities.",
+    backstory="Tasked with collecting comprehensive data about financial markets to inform investment strategies.",
     allow_delegation=True,
     verbose=True,
     llm=llm
 )
 
-# Define the task for Customer Research Agent
-customer_research_task = Task(
+# Define the task for Financial Research Agent
+financial_research_task = Task(
     description=(
-        "Collect comprehensive data about customer experiences from various sources. "
-        "Include details about feedback, satisfaction levels, and common issues."
+        "Collect comprehensive data about financial market trends from various sources. "
+        "Include details about investment opportunities and market analysis."
     ),
-    expected_output="Detailed report on customer experiences, feedback, and satisfaction levels.",
-    agent=customer_research_agent,
+    expected_output="Detailed report on financial market trends and investment opportunities.",
+    agent=financial_research_agent,
     tools=[search_tool, scrape_tool]
 )
 
-# Define the Customer Feedback Analysis Agent
-customer_feedback_analysis_agent = Agent(
-    role="Customer Feedback Analysis Agent",
-    goal="Analyze customer feedback and provide detailed reports.",
-    backstory="Focuses on identifying common issues and opportunities for improving customer satisfaction based on feedback data.",
+# Define the Investment Analysis Agent
+investment_analysis_agent = Agent(
+    role="Investment Analysis Agent",
+    goal="Analyze investment opportunities and provide detailed reports.",
+    backstory="Focuses on identifying potential investments and evaluating their risks and returns.",
     allow_delegation=True,
     verbose=True,
     llm=llm
 )
 
-# Define the task for Customer Feedback Analysis Agent
-customer_feedback_analysis_task = Task(
+# Define the task for Investment Analysis Agent
+investment_analysis_task = Task(
     description=(
-        "Analyze the feedback from customers based on data collected from various sources."
+        "Analyze the investment opportunities based on data collected from various sources."
     ),
-    expected_output="Detailed analysis report on customer feedback, highlighting common issues and opportunities for improvement.",
-    agent=customer_feedback_analysis_agent,
+    expected_output="Detailed analysis report on investment opportunities, highlighting potential risks and returns.",
+    agent=investment_analysis_agent,
     tools=[scrape_tool, search_tool]
 )
 
-# Define the Customer Experience Strategy Agent
-customer_experience_strategy_agent = Agent(
-    role="Customer Experience Strategy Agent",
-    goal="Develop strategies to improve customer experiences based on research and analysis.",
-    backstory="Specializes in creating strategies that enhance customer satisfaction and address common issues.",
+# Define the Financial Strategy Development Agent
+financial_strategy_development_agent = Agent(
+    role="Financial Strategy Development Agent",
+    goal="Develop strategies to optimize investment portfolios based on research and analysis.",
+    backstory="Specializes in creating strategies that enhance portfolio performance and manage risks.",
     allow_delegation=True,
     verbose=True,
     llm=llm
 )
 
-# Define the task for Customer Experience Strategy Agent
-customer_experience_strategy_task = Task(
+# Define the task for Financial Strategy Development Agent
+financial_strategy_development_task = Task(
     description=(
-        "Develop a strategy to improve customer experiences based on research and analysis."
+        "Develop a strategy to optimize investment portfolios based on research and analysis."
     ),
-    expected_output="Comprehensive strategy for improving customer experiences, including actionable recommendations.",
-    agent=customer_experience_strategy_agent,
+    expected_output="Comprehensive strategy for optimizing investment portfolios, including actionable recommendations.",
+    agent=financial_strategy_development_agent,
     tools=[search_tool, scrape_tool]
 )
 
-# Define the Customer Experience Management Agent
-customer_experience_management_agent = Agent(
-    role="Customer Experience Management Agent",
-    goal="Implement and manage strategies to improve customer experiences.",
-    backstory="Ensures strategies are effectively implemented and continuously monitored for effectiveness.",
+# Define the Portfolio Management Agent
+portfolio_management_agent = Agent(
+    role="Portfolio Management Agent",
+    goal="Implement and manage strategies to optimize investment portfolios.",
+    backstory="Ensures strategies are effectively implemented and continuously monitored for performance.",
     allow_delegation=True,
     verbose=True,
     llm=llm
 )
 
-# Define the task for Customer Experience Management Agent
-customer_experience_management_task = Task(
+# Define the task for Portfolio Management Agent
+portfolio_management_task = Task(
     description=(
-        "Manage and optimize the implementation of strategies to improve customer experiences."
+        "Manage and optimize the implementation of strategies to optimize investment portfolios."
     ),
-    expected_output="Report on the implementation of customer experience strategies, including progress and future recommendations.",
-    agent=customer_experience_management_agent,
+    expected_output="Report on the implementation of portfolio optimization strategies, including progress and future recommendations.",
+    agent=portfolio_management_agent,
     tools=[search_tool, scrape_tool]
 )
 
 # Instantiate the Crew with memory and cache enabled
 crew = Crew(
     agents=[
-        customer_research_agent, 
-        customer_feedback_analysis_agent,
-        customer_experience_strategy_agent,
-        customer_experience_management_agent
+        financial_research_agent, 
+        investment_analysis_agent,
+        financial_strategy_development_agent,
+        portfolio_management_agent
     ],
     tasks=[
-        customer_research_task, 
-        customer_feedback_analysis_task,
-        customer_experience_strategy_task,
-        customer_experience_management_task
+        financial_research_task, 
+        investment_analysis_task,
+        financial_strategy_development_task,
+        portfolio_management_task
     ],
     verbose=2,
     memory=True,  # Enable memory
@@ -127,8 +127,8 @@ crew = Crew(
 
 # Define the inputs
 inputs = {
-    "company_name": "Disney",
-    "focus_area": "Enhancing overall customer satisfaction and experience"
+    "company_name": "Goldman Sachs",
+    "focus_area": "Optimizing investment portfolios and identifying new opportunities"
 }
 
 # Execute the kickoff
